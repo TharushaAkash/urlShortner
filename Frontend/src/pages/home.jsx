@@ -31,18 +31,29 @@ export default function HomePage() {
         setExpireAt(e.target.value);
     }
 
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const handleCheckbox = (e) => {
+        setIsPassword(e.target.checked)
+    }
+
 
 
     async function handleSubmit() {
         try {
             setLoading(true);
             console.log(`url is: ${url}`)
-            console.log(`expire is: ${expireAt}`)  //Dubugging purpose
+            console.log(`expire is: ${expireAt}`)
+            console.log(`pass: ${password} and ${isPassword}`) //Dubugging purpose
 
             const response = await axios.post(import.meta.env.VITE_API_URI,
                 {
                     long_url: url,
-                    expireAt: Number(expireAt)  //Convert to number format
+                    expireAt: Number(expireAt) ,
+                    isPassword: isPassword,
+                    password: isPassword ? password : null//Convert to number format
                 }
             )
 
@@ -52,6 +63,7 @@ export default function HomePage() {
                 setTimeout(() => {
                     setShowModel(true);
                     toast.success(response.data.message);
+                    toast.success(response.data.password)
                 }, 1000);
                 return;
 
@@ -59,7 +71,9 @@ export default function HomePage() {
             //Else display expire msg as well
             if (response) {
                 console.log(`url: ${response.data.url}`)
-                console.log(`expire: ${response.data.expire}`);
+                console.log(`expire: ${response.data.expire}`)
+                console.log('isPassword: ${response.data.isPassword}')
+                
                 setUrl(response.data.url)
                 setTimeout(() => {
                     setShowModel(true);
@@ -224,9 +238,7 @@ export default function HomePage() {
                                 <div className="flex items-center gap-3 mb-3">
                                     <input
                                         type="checkbox"
-                                        onChange={(e) => {
-                                            setIsPassword(e.target.checked);
-                                        }}
+                                        onChange={handleCheckbox}
                                         className="scale-150 cursor-pointer"
                                     ></input>
                                     <label className="text-white">Password Protection</label>
@@ -236,9 +248,7 @@ export default function HomePage() {
                                     disabled={!isPassword}
                                     autoComplete="off"
                                     placeholder="Enter password"
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                    }}
+                                    onChange={handlePassword}
                                     className={`w-full px-4 py-2 border border-slate-600 rounded-2xl bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${isPassword ? 'cursor-text' : 'cursor-not-allowed'}`}
                                 ></input>
                             </div>

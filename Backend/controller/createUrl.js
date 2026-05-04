@@ -6,9 +6,14 @@ import Url from "../model/url.js";
 export async function createUrl(req, res) {
     try {
 
-        const { long_url, expireAt } = req.body;
+        const { long_url, expireAt, password } = req.body;
 
         const short_url = nanoid(5);
+
+        const isPass =
+            req.body.isPassword === "true" ||
+            req.body.isPassword === "on" ||
+            req.body.isPassword === true;
 
         //Check expire time exist in request body, if exists convert to number
         const exTime = expireAt ? Number(expireAt) : null;
@@ -20,29 +25,37 @@ export async function createUrl(req, res) {
             expireDate = new Date(Date.now() + exTime * 60 * 1000)
         }
 
+
         await Url.create({
             long_url: long_url,
             short_url,
-            expireAt: expireDate
+            expireAt: expireDate,
+            password,
+            isPassword: isPass
         })
 
         //If expire time exist, send expire msg as response
         if (exTime) {
+            
             res.status(201).json(
                 {
                     url: `${process.env.BASE_URL}/${short_url}`,
                     message: "Url created successfully",
-                    expire: `The link will expire in  ${req.body.expireAt} minutes`
+                    expire: `The link will expire in  ${req.body.expireAt} minutes`,
+                    isPassword: isPass
                 }
             )
             return;
         }
 
         //Not exist expire time send only message and short url
+        
         res.status(201).json(
             {
                 url: `${process.env.BASE_URL}/${short_url}`,
                 message: "Url created successfully",
+                isPassword: isPass,
+                password: password
             }
         )
 
