@@ -55,21 +55,24 @@ export default function HomePage() {
                     isPassword: isPassword,
                     ...(isPassword && {
                         password: password
+                    }),
+                    ...(expireAt && {
+                        expireAt: expireAt
                     })
                 }
             )
 
-            // If expire is null not display expire msg
-            if (response.data.expire == null) {
-                setUrl(response.data.url)
-                setTimeout(() => {
-                    setShowModel(true);
-                    toast.success(response.data.message);
-                    toast.success(response.data.password)
-                }, 1000);
-                return;
+            // // If expire is null not display expire msg
+            // if (response.data.expire == null) {
+            //     setUrl(response.data.url)
+            //     setTimeout(() => {
+            //         setShowModel(true);
+            //         toast.success(response.data.message);
+            //         toast.success(response.data.password)
+            //     }, 1000);
+            //     return;
 
-            }
+            // }
             //Else display expire msg as well
             if (response) {
                 console.log(`url: ${response.data.url}`)
@@ -79,8 +82,11 @@ export default function HomePage() {
                 setUrl(response.data.url)
                 setTimeout(() => {
                     setShowModel(true);
+                    if(response.data.expire !== null){
+                        toast.success(response.data.expire);
+                    }
                     toast.success(response.data.message);
-                    toast.success(response.data.expire);
+                    toast.success(response.data.password);
                 }, 1000);
 
 

@@ -5,32 +5,35 @@ import Url from "../model/url.js";
 export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
+    const date = new Date(expireAt);
 
     // Basic validation
     if (!long_url) {
-      return res.status(400).json(
-        { 
-          message: "long_url is required" 
-        }
-      );
+      return res.status(400).json({message: "Url is required.."});
     }
+
+    if(isNaN(date.getTime())){
+      return res.status(400).json({message: "Invalid date format"});
+    }
+
+    
 
     const short_url = nanoid(5);
 
     // Convert expire time to number
-    const exTime = Number(expireAt);
+    // const exTime = Number(expireAt);
 
     // Calculate expiry date if valid
-    const expireDate =
-      !isNaN(exTime) && exTime > 0
-        ? new Date(Date.now() + exTime * 60 * 1000)
-        : null;
+    // const expireDate =
+    //   !isNaN(date) && date > 0
+    //     ? new Date(Date.now() + exTime * 60 * 1000)
+    //     : null;
 
     // Save URL
     await Url.create({
       long_url,
       short_url,
-      expireAt: expireDate,
+      expireAt: date,
       isPassword,
       password
     });
@@ -39,8 +42,8 @@ export async function createUrl(req, res) {
     return res.status(201).json({
       url: `${process.env.BASE_URL}/${short_url}`,
       message: "Url created successfully",
-      ...(expireDate && {
-        expire: `The link will expire in ${exTime} minutes`,
+      ...(date && {
+        expire: `The link will expire on ${date}`,
       }),
       ...(isPassword && {
         password: `Password: ${password}`
