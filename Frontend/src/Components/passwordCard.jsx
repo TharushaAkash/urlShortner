@@ -6,6 +6,7 @@ import { TbFidgetSpinnerFilled } from "react-icons/tb";
 import { MdErrorOutline } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 export default function PasswordCard(){
@@ -13,6 +14,8 @@ export default function PasswordCard(){
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    const navigate = useNavigate();
 
     const handlePassword = (e) => {
         setPassword(e.target.value);
@@ -29,6 +32,7 @@ export default function PasswordCard(){
 
             if(response){
                 setTimeout(() => {
+                    navigate(response.data.url)
                 }, 2000)
             }
 
@@ -90,7 +94,7 @@ export default function PasswordCard(){
                     {error && (
                         <div className="flex gap-3 w-full bg-red-900/30 border-2 border-red-800 mt-6 px-6 py-4 rounded-2xl justify-center items-center">
                         <MdErrorOutline  className="text-2xl text-red-300"/>
-                        <p className="text-red-300">{response.data.message}</p>
+                        <p className="text-red-300">Invalid Password. Try Again.</p>
                     </div>
 
                     )}
