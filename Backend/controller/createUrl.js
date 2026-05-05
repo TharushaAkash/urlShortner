@@ -34,7 +34,7 @@ export async function createUrl(req, res) {
     // Send response (dynamic)
     return res.status(201).json({
       url: `${process.env.BASE_URL}/${short_url}`,
-      message: "Url created successfully",
+      message: "URL created successfully",
       ...(date && {
         expire: `The link will expire on ${date}`,
       }),

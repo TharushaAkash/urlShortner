@@ -74,7 +74,7 @@ export default function PasswordCard(){
                         type="password"
                         placeholder="Enter password"
                         onChange={handlePassword}
-                        className="flex bg-slate-800 mb-4 px-5 py-4 w-full rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                        className={`flex bg-slate-800 mb-4 px-5 py-4 w-full rounded-2xl border ${error ? 'border-2 border-red-800' : 'border-slate-700'} border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white`}
                     >
                     </input>
 

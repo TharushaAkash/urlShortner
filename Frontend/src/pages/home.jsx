@@ -45,8 +45,7 @@ export default function HomePage() {
         try {
             setLoading(true);
             console.log(`url is: ${url}`)
-            console.log(`expire is: ${expireAt}`)
-            console.log(`pass: ${password} and ${isPassword}`) //Dubugging purpose
+            console.log(`expire is: ${expireAt}`) //Dubugging purpose
 
             const response = await axios.post(import.meta.env.VITE_API_URI,
                 {
@@ -77,7 +76,6 @@ export default function HomePage() {
             if (response) {
                 console.log(`url: ${response.data.url}`)
                 console.log(`expire: ${response.data.expire}`)
-                console.log('isPassword: ${response.data.isPassword}')
                 
                 setUrl(response.data.url)
                 setTimeout(() => {
@@ -86,7 +84,6 @@ export default function HomePage() {
                         toast.success(response.data.expire);
                     }
                     toast.success(response.data.message);
-                        toast.success(response.data.password);
                 }, 1000);
 
 
@@ -171,7 +168,7 @@ export default function HomePage() {
                 {/* Badge */}
                 <div className="text-[#8ec5ff] mt-10 bg-[#1b3061] w-auto px-4 py-2 rounded-2xl flex gap-3 justify-center items-center">
                     <MdOutlineElectricBolt />
-                    <h2 className="font-bold text-[#8ec5ff] text-sm sm:text-base">Fast &amp; Free URL Shortener</h2>
+                    <h2 className="font-bold text-[#8ec5ff] text-sm sm:text-base">Fast & Free URL Shortener</h2>
                 </div>
 
                 {/* Hero text */}
