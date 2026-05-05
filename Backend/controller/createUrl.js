@@ -70,7 +70,7 @@ export async function redirectUrl(req, res) {
     }
 
     if(url.isPassword){
-      return res.redirect(`https://th-urls.vercel.app/password?id=${short_url}`)
+      return res.redirect(`https://th-urls.vercel.app/password`)
     }
 
     if(url.isPassword && url.password !== password){
