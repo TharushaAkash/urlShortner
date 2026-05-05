@@ -5,6 +5,8 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import HomePage from './pages/home'
 import { Toaster } from 'react-hot-toast'
+import PasswordPage from './pages/password'
+import { Routes, Route } from "react-router-dom";
 
 
 function App() {
@@ -13,7 +15,11 @@ function App() {
   return (
     <div>
       <Toaster position ='top-center' />
-      <HomePage />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/password' element={<PasswordPage />} />
+      </Routes>
+      
     </div>
   )
 }
