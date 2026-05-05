@@ -45,7 +45,7 @@ export default function PasswordCard(){
             }
 
         }catch(err){
-            
+            setError(true);
         }finally {
             setLoading(false);
         }

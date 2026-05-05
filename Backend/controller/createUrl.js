@@ -13,9 +13,7 @@ export async function createUrl(req, res) {
       return res.status(400).json({ message: "Url is required.." });
     }
 
-    if (isNaN(date.getTime())) {
-      return res.status(400).json({ message: "Invalid date format" });
-    }
+   
 
 
     const short_url = nanoid(5);
