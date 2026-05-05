@@ -5,7 +5,7 @@ import Url from "../model/url.js";
 export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
-    const date = new Date(expireAt);
+    const date = expireAt ? new Date(expireAt) : null;
    
 
     // Basic validation
