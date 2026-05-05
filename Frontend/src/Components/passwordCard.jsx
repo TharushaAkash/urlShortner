@@ -21,7 +21,7 @@ export default function PasswordCard(){
     async function handleSubmit() {
         try {
             setLoading(true);
-            const response = await axios.post(`${import.meta.env.VITE_API_URI}/${shortUrl}`, 
+            const response = await axios.post(`${import.meta.env.VITE_API_URI}/${shortUrl}/password`, 
                 {
                     password: password
                 }

@@ -5,6 +5,6 @@ const url_router = express.Router();
 
 url_router.post('/', createUrl);
 url_router.get('/:short_url', redirectUrl);
-url_router.post('/:shortUrl', checkPassword);
+url_router.post('/:shortUrl/password', checkPassword);
 
 export default url_router;
