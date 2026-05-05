@@ -103,10 +103,10 @@ export async function checkPassword(req, res) {
     }
 
     if(url.isPassword && url.password !== password){
-      return res.status(401).json({message: "Invalid Password. Try Again.."})
+      return res.status(401).json({message: "Invalid Password. Try Again..", success: false})
     }
 
-    res.status(201).json({url: url.long_url})
+    res.status(201).json({url: url.long_url, success: true})
 
   }catch(err){
     res.status(500).json({message: err.message});

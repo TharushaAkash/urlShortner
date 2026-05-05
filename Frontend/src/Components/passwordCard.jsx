@@ -33,6 +33,7 @@ export default function PasswordCard(){
 
             if(response){
                 setTimeout(() => {
+                    setError(true);
                     window.location.href = response.data.url;
                 }, 2000)
             }
