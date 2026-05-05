@@ -6,7 +6,7 @@ export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
     const date = new Date(expireAt);
-
+   
 
     // Basic validation
     if (!long_url) {
@@ -58,7 +58,6 @@ export async function createUrl(req, res) {
 export async function redirectUrl(req, res) {
   try {
     const { short_url } = req.params;
-    const password = req.body.password;
 
     const url = await Url.findOne({ short_url });
 
@@ -69,12 +68,8 @@ export async function redirectUrl(req, res) {
       });
     }
 
-    if (url.isPassword) {
-      return res.redirect(`https://th-urls.vercel.app/password`)
-    }
-
-    if (url.isPassword && url.password !== password) {
-      return res.status(401).json({ message: "Invalid Password. Try Again." })
+    if(url.isPassword){
+      return res.redirect(`https://th-urls.vercel.app/${short_url}/password`)
     }
 
     // Expired
@@ -92,5 +87,28 @@ export async function redirectUrl(req, res) {
     return res.status(500).json({
       message: err.message,
     });
+  }
+}
+
+
+export async function checkPassword(req, res) {
+  try{
+    const shortUrl = req.params.shortUrl;
+    const password = req.body.password;
+
+    const url = await Url.findOne({short_url: shortUrl});
+
+    if(!url){
+      return res.status(404).json({message: "Url not found"});
+    }
+
+    if(url.isPassword && url.password !== password){
+      return res.status(401).json({message: "Invalid Password. Try Again.."})
+    }
+
+    res.redirect(url.long_url);
+
+  }catch(err){
+    res.status(500).json({message: err.message});
   }
 }
