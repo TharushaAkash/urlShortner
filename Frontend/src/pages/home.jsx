@@ -260,8 +260,10 @@ export default function HomePage() {
                                     <label className="text-white">Expiration Time</label>
                                 </div>
                                 <input
-                                    type="date"
+                                    type="datetime-local"
+                                    onChange={handleTime}
                                     className="w-full px-4 py-2 border border-slate-600 rounded-2xl bg-slate-700 text-white"
+
                                 ></input>
                             </div>
 
