@@ -8,6 +8,9 @@ export async function createUrl(req, res) {
     const date = new Date(expireAt);
     console.log(`type of before: ${typeof expireAt}`)
     console.log(`type of: ${typeof date}`);
+    const d = new Date("2026-05-21")
+    console.log(d instanceof Date);
+    console.log(date instanceof Date)
 
     // Basic validation
     if (!long_url) {
