@@ -6,7 +6,7 @@ export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
     const date = new Date(expireAt);
-   
+
 
     // Basic validation
     if (!long_url) {
@@ -69,12 +69,12 @@ export async function redirectUrl(req, res) {
       });
     }
 
-    if(url.isPassword){
+    if (url.isPassword) {
       return res.redirect(`https://th-urls.vercel.app/password`)
     }
 
-    if(url.isPassword && url.password !== password){
-      return res.status(401).json({message:"Invalid Password. Try Again."})
+    if (url.isPassword && url.password !== password) {
+      return res.status(401).json({ message: "Invalid Password. Try Again." })
     }
 
     // Expired
