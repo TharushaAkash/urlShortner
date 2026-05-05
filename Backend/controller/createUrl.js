@@ -9,8 +9,6 @@ export async function createUrl(req, res) {
     console.log(`type of before: ${typeof expireAt}`)
     console.log(`type of: ${typeof date}`);
     const d = new Date("2026-05-21")
-    console.log(d instanceof Date);
-    console.log(date instanceof Date)
     console.log(`req date: ${expireAt}`)
     console.log(`after convert to new Date: ${date}`)
 
@@ -71,7 +69,8 @@ export async function redirectUrl(req, res) {
     }
 
     // Expired
-    if (url.expireAt && new Date() > new Date(url.expireAt)) {
+    const expireTime = url.expireAt ? new Date(url.expireAt).getTime() : null;
+    if (expireTime && new Date() > expireTime) {
       return res.status(404).json({
         message: "Url is expired",
       });
