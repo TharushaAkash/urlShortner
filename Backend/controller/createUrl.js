@@ -24,17 +24,7 @@ export async function createUrl(req, res) {
     }
 
     
-
     const short_url = nanoid(5);
-
-    // Convert expire time to number
-    // const exTime = Number(expireAt);
-
-    // Calculate expiry date if valid
-    // const expireDate =
-    //   !isNaN(date) && date > 0
-    //     ? new Date(Date.now() + exTime * 60 * 1000)
-    //     : null;
 
     // Save URL
     await Url.create({
