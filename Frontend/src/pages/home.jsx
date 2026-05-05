@@ -92,7 +92,7 @@ export default function HomePage() {
 
             }
         } catch (err) {
-            toast.error(err.response.data.message);
+            toast.error(err.response?.data?.message || err.message || "An error occurred");
 
         } finally {
             setTimeout(() => {

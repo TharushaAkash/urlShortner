@@ -6,7 +6,7 @@ import { TbFidgetSpinnerFilled } from "react-icons/tb";
 import { MdErrorOutline } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 export default function PasswordCard(){
@@ -16,6 +16,7 @@ export default function PasswordCard(){
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
+    const { shortUrl } = useParams();
 
     const handlePassword = (e) => {
         setPassword(e.target.value);
@@ -32,12 +33,12 @@ export default function PasswordCard(){
 
             if(response){
                 setTimeout(() => {
-                    navigate(response.data.url)
+                    window.location.href = response.data.url;
                 }, 2000)
             }
 
         }catch(err){
-            toast.error(err.response.data.message)
+            toast.error(err.response?.data?.message || err.message || "An error occurred");
         }finally {
             setLoading(false);
         }
