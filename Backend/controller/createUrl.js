@@ -58,6 +58,7 @@ export async function createUrl(req, res) {
 export async function redirectUrl(req, res) {
   try {
     const { short_url } = req.params;
+    const password = req.body.password;
 
     const url = await Url.findOne({ short_url });
 
@@ -66,6 +67,14 @@ export async function redirectUrl(req, res) {
       return res.status(404).json({
         message: "Url not found",
       });
+    }
+
+    if(url.isPassword){
+      return res.redirect(`https://th-urls.vercel.app/password?id=${short_url}`)
+    }
+
+    if(url.isPassword && url.password !== password){
+      return res.status(401).json({message:"Invalid Password. Try Again."})
     }
 
     // Expired
