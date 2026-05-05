@@ -6,6 +6,8 @@ export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
     const date = new Date(expireAt);
+    console.log(`type of before: ${typeof expireAt}`)
+    console.log(`type of: ${typeof date}`);
 
     // Basic validation
     if (!long_url) {
