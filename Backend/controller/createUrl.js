@@ -71,7 +71,7 @@ export async function redirectUrl(req, res) {
     }
 
     // Expired
-    if (url.expireAt && new Date() > url.expireAt) {
+    if (url.expireAt && new Date() > new Date(url.expireAt)) {
       return res.status(404).json({
         message: "Url is expired",
       });
