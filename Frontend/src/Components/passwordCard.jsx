@@ -4,6 +4,9 @@ import { FaUnlockAlt } from "react-icons/fa";
 import { ImSpinner } from "react-icons/im";
 import { TbFidgetSpinnerFilled } from "react-icons/tb";
 import { MdErrorOutline } from "react-icons/md";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 export default function PasswordCard(){
 
