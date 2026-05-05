@@ -33,13 +33,19 @@ export default function PasswordCard(){
 
             if(response){
                 setTimeout(() => {
-                    setError(true);
-                    window.location.href = response.data.url;
+                    if(response.data.success){
+                        window.location.href = response.data.url;
+                    }
+                    else{
+                        setError(true);
+                    }
+                    
+                    
                 }, 2000)
             }
 
         }catch(err){
-            toast.error(err.response?.data?.message || err.message || "An error occurred");
+            
         }finally {
             setLoading(false);
         }
