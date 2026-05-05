@@ -11,6 +11,8 @@ export async function createUrl(req, res) {
     const d = new Date("2026-05-21")
     console.log(d instanceof Date);
     console.log(date instanceof Date)
+    console.log(`req date: ${expireAt}`)
+    console.log(`after convert to new Date: ${date}`)
 
     // Basic validation
     if (!long_url) {
