@@ -82,11 +82,11 @@ export default function HomePage() {
                 setUrl(response.data.url)
                 setTimeout(() => {
                     setShowModel(true);
-                    if(response.data.expire !== null){
+                    if(response.data.expire){
                         toast.success(response.data.expire);
                     }
                     toast.success(response.data.message);
-                    toast.success(response.data.password);
+                        toast.success(response.data.password);
                 }, 1000);
 
 

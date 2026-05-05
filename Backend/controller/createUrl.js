@@ -6,31 +6,31 @@ export async function createUrl(req, res) {
   try {
     const { long_url, expireAt, isPassword, password } = req.body;
     const date = new Date(expireAt);
-    console.log(`type of before: ${typeof expireAt}`)
-    console.log(`type of: ${typeof date}`);
-    const d = new Date("2026-05-21")
-    console.log(`req date: ${expireAt}`)
-    console.log(`after convert to new Date: ${date}`)
+   
 
     // Basic validation
     if (!long_url) {
-      return res.status(400).json({message: "Url is required.."});
+      return res.status(400).json({ message: "Url is required.." });
     }
 
-    if(isNaN(date.getTime())){
-      return res.status(400).json({message: "Invalid date format"});
+    if (isNaN(date.getTime())) {
+      return res.status(400).json({ message: "Invalid date format" });
     }
 
-    
+
     const short_url = nanoid(5);
 
     // Save URL
     await Url.create({
       long_url,
       short_url,
-      expireAt: date,
-      isPassword,
-      password
+      ...(date && {
+        expireAt: date
+      }),
+      ...(isPassword && {
+        isPassword: isPassword,
+        password: password
+      })
     });
 
     // Send response (dynamic)
