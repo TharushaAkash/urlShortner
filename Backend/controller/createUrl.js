@@ -69,7 +69,7 @@ export async function redirectUrl(req, res) {
     }
 
     if(url.isPassword){
-      return res.redirect(`https://th-urls.vercel.app/${short_url}/password`)
+      return res.redirect(`https://th-urls.vercel.app/${short_url}`)
     }
 
     // Expired

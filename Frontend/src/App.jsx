@@ -17,7 +17,7 @@ function App() {
       <Toaster position ='top-center' />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/:shortUrl/password' element={<PasswordPage />} />
+        <Route path='/:shortUrl' element={<PasswordPage />} />
       </Routes>
       
     </div>
