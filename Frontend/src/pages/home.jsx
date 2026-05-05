@@ -53,7 +53,9 @@ export default function HomePage() {
                     long_url: url,
                     expireAt: Number(expireAt) ,
                     isPassword: isPassword,
-                    password: isPassword ? password : null//Convert to number format
+                    ...(isPassword && {
+                        password: password
+                    })
                 }
             )
 
@@ -94,14 +96,7 @@ export default function HomePage() {
 
     }
 
-
-
-
     return (
-
-
-
-
         <div className="flex h-screen">
 
             {/* loading screen */}
