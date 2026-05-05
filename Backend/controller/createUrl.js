@@ -4,11 +4,15 @@ import Url from "../model/url.js";
 // Create short URL
 export async function createUrl(req, res) {
   try {
-    const { long_url, expireAt } = req.body;
+    const { long_url, expireAt, isPassword, password } = req.body;
 
     // Basic validation
     if (!long_url) {
-      return res.status(400).json({ message: "long_url is required" });
+      return res.status(400).json(
+        { 
+          message: "long_url is required" 
+        }
+      );
     }
 
     const short_url = nanoid(5);
@@ -27,6 +31,8 @@ export async function createUrl(req, res) {
       long_url,
       short_url,
       expireAt: expireDate,
+      isPassword,
+      password
     });
 
     // Send response (dynamic)
@@ -36,6 +42,9 @@ export async function createUrl(req, res) {
       ...(expireDate && {
         expire: `The link will expire in ${exTime} minutes`,
       }),
+      ...(isPassword && {
+        password: `Password: ${password}`
+      })
     });
 
   } catch (err) {
