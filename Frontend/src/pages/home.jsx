@@ -51,7 +51,7 @@ export default function HomePage() {
             const response = await axios.post(import.meta.env.VITE_API_URI,
                 {
                     long_url: url,
-                    expireAt: Number(expireAt) ,
+                    expireAt: expireAt,
                     isPassword: isPassword,
                     ...(isPassword && {
                         password: password
